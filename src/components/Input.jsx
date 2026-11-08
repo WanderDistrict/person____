@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 function Input(props) {
     const validate = props.validate
-    const [color, setColor] = useState(validate(props.value).valid ? 'green' : 'red')
+    const [color, setColor] = useState('#ccc')
 
     const onChange = (e) => {
         const val = e.target.value
@@ -17,6 +17,8 @@ function Input(props) {
     }
 
     
+    const currentColor = props.error && props.error.isError ? 'red' : color
+
     return (
         <div>
             <label>{props.header}</label>
@@ -24,7 +26,7 @@ function Input(props) {
                 type={props.type}
                 value={props.value}
                 onChange={onChange}
-                style={{ borderColor: color }}
+                style={{ borderColor: currentColor, outline: 'none', borderWidth: '2px' }}
             />
             {props.error && props.error.isError ? <p>{props.error.message}</p> : null}
         </div>
